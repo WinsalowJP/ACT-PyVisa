@@ -30,7 +30,16 @@ if not combined_csv_in:
     exit()
 combined_csv = f'{combined_csv_in}.csv'
 
-combined_filename = f'{timestamp}_combined_ACDC.csv'
+print('Enter a name for the output CSV (without .csv extension):')
+output_filename_in = input().strip()  # Get user input and remove any leading/trailing whitespace
+
+# Validate input
+if not output_filename_in:
+    print("Error: Output file CSV name cannot be empty.")
+    exit()
+output_filename = f'{output_filename_in}.csv'
+
+#output_filename = f'{timestamp}_combined_ACDC.csv' #default timestamp output filename
 
 def convert_time(time_str):
     """
@@ -89,7 +98,7 @@ with open(combined_csv, 'r') as file:
             }
 
 # Process and write combined data to the final CSV file
-with open(combined_filename, 'w', newline='') as file:
+with open(output_filename, 'w', newline='') as file:
     csvwriter = csv.writer(file)
     csvwriter.writerow(combine_header)  # Write header row
 
