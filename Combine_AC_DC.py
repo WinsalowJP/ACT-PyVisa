@@ -130,7 +130,7 @@ with open(output_filename, 'w', newline='') as file:
             print(f"No matching time found for Time: {com_time_val}")
 
 print('')
-print(f'Processed combined data written to {combined_filename}')
+print(f'Processed combined data written to {output_filename}')
 print('')
 print('Press Enter to close')
 input()
