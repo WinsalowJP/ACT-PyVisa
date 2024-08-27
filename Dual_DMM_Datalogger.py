@@ -15,8 +15,8 @@ dmm_id2 = 'USB0::0x2A8D::0x0301::MY54505907::INSTR' #uncomment for multimeter 2 
  
 # CSV file setup
 timestamp = time.strftime('%Y%m%d-%H%M%S')
-filename = f'2_dmm_measurements_{timestamp}.csv'
-header = ['Date'] + ['Time'] + ['Voltage'] + ['Current'] + ['Voltage of shunt'] + ['Power']
+filename = f'Dual_DMM_Datalogger_{timestamp}.csv'
+header = ['Date'] + ['Time'] + ['Voltage (V)'] + ['Current (A)'] + ['Voltage of shunt (V)'] + ['Power (kW)']
  
 try:
     # Open the CSV file for writing
@@ -65,20 +65,20 @@ try:
            
             # Reading the voltage measurement
             measurement1 = dmm1.query('MEAS:VOLT:DC?')
-            measurement_value_1 = float(measurement1)
-            print(f'Voltage: {measurement_value_1:.6f} V')
-            csv_out.append(f'{measurement_value_1:.6f}')
+            voltage = float(measurement1)
+            print(f'Voltage: {voltage:.6f} V')
+            csv_out.append(f'{voltage:.6f}')
            
             # Reading the current measurement
             measurement2 = dmm2.query('MEAS:VOLT:DC?')
-            measurement_value_current_1 = float(measurement2)
-            measurement_value_current_2 = 5000 * measurement_value_current_1
-            power = measurement_value_current_2 * measurement_value_1
+            voltage2 = float(measurement2)
+            current = 5000 * voltage2 #convert mV to A
+            power = current * voltage #current * voltage to get power
             power_out = power / 1000 #change unit to kW from W
-            print(f'Current: {measurement_value_current_2:.6f} A')
+            print(f'Current: {current:.6f} A')
             print(f'Power: {power_out:.6f} kW')
-            csv_out.append(f'{measurement_value_current_2:.6f}')
-            csv_out.append(f'{measurement_value_current_1:.6f}')
+            csv_out.append(f'{current:.6f}')
+            csv_out.append(f'{voltage2:.6f}')
             csv_out.append(f'{power_out:.6f}')
 
             # Write the measurements to the CSV file
