@@ -69,10 +69,10 @@ try:
             print(f'Voltage: {measurement_value_1:.6f} V')
             csv_out.append(f'{measurement_value_1:.6f}')
            
-            # Reading the voltage measurement
+            # Reading the current measurement
             measurement2 = dmm2.query('MEAS:VOLT:DC?')
             measurement_value_current_1 = float(measurement2)
-            measurement_value_current_2 = 10000 * measurement_value_current_1
+            measurement_value_current_2 = 5000 * measurement_value_current_1
             power = measurement_value_current_2 * measurement_value_1
             power_out = power / 1000 #change unit to kW from W
             print(f'Current: {measurement_value_current_2:.6f} A')
