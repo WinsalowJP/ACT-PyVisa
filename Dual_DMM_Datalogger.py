@@ -51,7 +51,7 @@ try:
         dmm1.write('CONF:VOLT:DC 10,0.001')  # Configure for DC voltage, range 10V, resolution 1mV
  
         # Example: Configure the multimeter for voltage measurement
-        dmm2.write('CONF:VOLT:DC 10,0.0001')  # Configure for DC voltage, range 10V, resolution 1mV
+        dmm2.write('CONF:VOLT:DC 10,0.0001')  # Configure for DC voltage, range 10V, resolution 0.1mV?
  
         # Perform multiple readings
         num_readings = 100000  # Number of readings to take
@@ -72,18 +72,20 @@ try:
             # Reading the current measurement
             measurement2 = dmm2.query('MEAS:VOLT:DC?')
             voltage2 = float(measurement2)
+
             current = 5000 * voltage2 #convert mV to A
             power = current * voltage #current * voltage to get power
             power_out = power / 1000 #change unit to kW from W
-            print(f'Current: {current:.6f} A')
-            print(f'Power: {power_out:.6f} kW')
-            csv_out.append(f'{current:.6f}')
-            csv_out.append(f'{voltage2:.6f}')
-            csv_out.append(f'{power_out:.6f}')
+
+            print(f'Current: {current:.6f} A') #print current
+            print(f'Power: {power_out:.6f} kW') #print power
+            csv_out.append(f'{current:.6f}') #add current to csv
+            csv_out.append(f'{voltage2:.6f}') #add shunt voltage to csv
+            csv_out.append(f'{power_out:.6f}') #add power to csv
 
             # Write the measurements to the CSV file
-            csvwriter.writerow(csv_out)
-            time.sleep(0.2)  # Wait 1 second between readings
+            csvwriter.writerow(csv_out) #write all data into csv
+            time.sleep(0.2)  # delay by 0.2second. this is minimum. 1 second between readings approximately
  
 except pyvisa.VisaIOError as e:
     print(f"VISA IO Error: {e}")
