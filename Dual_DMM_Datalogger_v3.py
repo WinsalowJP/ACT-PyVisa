@@ -6,11 +6,11 @@ import threading
 # Resource manager setup
 rm = pyvisa.ResourceManager()
 
-resources = rm.list_resources()
+resources = rm.list_resources() #checks available devices for VISA to connect to. 
 print("Available resources:", resources)
 
-dmm_id1 = 'USB0::0x2A8D::0x0301::MY54507560::INSTR'  # uncomment for multimeter 1 ACT0012
-dmm_id2 = 'USB0::0x2A8D::0x0301::MY54505907::INSTR'  # uncomment for multimeter 2 ACT0011
+dmm_id1 = 'USB0::0x2A8D::0x0301::MY54507560::INSTR'  # multimeter 1 (ACT0012)
+dmm_id2 = 'USB0::0x2A8D::0x0301::MY54505907::INSTR'  # multimeter 2 (ACT0011)
 
 # CSV file setup
 timestamp = time.strftime('%Y%m%d-%H%M%S')
@@ -26,9 +26,11 @@ if not name_input:
 filename = f'{name_input}.csv'
 #############################################################################################################
 
-# Global flag for stopping the loop
-stop_logging = False
 
+##############################################################
+# Global flag for stopping the loop.
+# checks if user has input stop and end logging.
+stop_logging = False
 
 def check_for_stop():
     global stop_logging
@@ -36,12 +38,13 @@ def check_for_stop():
         user_input = input().strip().lower()
         if user_input == 'stop':
             stop_logging = True
-
+###############################################################
 
 # Create and start the thread for checking the stop command
 input_thread = threading.Thread(target=check_for_stop)
 input_thread.daemon = True  # Set daemon to allow the program to exit even if the thread is still running
 input_thread.start()
+
 
 try:
     # Open the CSV file for writing
@@ -69,7 +72,7 @@ try:
         time.sleep(0.5)
 
         # Configure the multimeter for voltage measurement
-        dmm1.write('CONF:VOLT:DC 10,0.001')  # Configure for DC voltage, range 10V, resolution 1mV
+        dmm1.write('CONF:VOLT:DC 100,0.001')  # Configure for DC voltage, range 100V, resolution 1mV
         dmm2.write('CONF:VOLT:DC 10,0.0001')  # Configure for DC voltage, range 10V, resolution 0.1mV
 
         # Perform multiple readings until stopped

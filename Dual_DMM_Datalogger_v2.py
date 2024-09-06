@@ -20,7 +20,6 @@ header = ['Date'] + ['Time'] + ['Voltage (V)'] + ['Current (A)'] + ['Voltage of 
 # Global flag for stopping the loop
 stop_logging = False
 
-
 def check_for_stop():
     global stop_logging
     while not stop_logging:

@@ -62,16 +62,17 @@ def convert_time(time_str):
         raise ValueError(f"Invalid time format: {time_str}")
 
 # Read Power Meter data
+# dumps power meter data into variables
 with open(pm_csv, 'r') as file:
     pm_csvreader = csv.reader(file)
     for _ in range(11):  # Skip the first 11 rows
         next(pm_csvreader)
     for value in pm_csvreader:
-        if len(value) > 26:
+        if len(value) > 26: #checks if there is enough columns to pull data from
             time_val = convert_time(value[2])
-            pm_data[time_val] = {
-                'date': value[1],
-                'v1': float(value[3]),
+            pm_data[time_val] = { #column A corresponds to 0 and count to whichever letter and do the math
+                'date': value[1], #col B
+                'v1': float(value[3]), #col D
                 'a1': float(value[4]),
                 'p1': float(value[5]),
                 'v2': float(value[9]),
@@ -84,11 +85,12 @@ with open(pm_csv, 'r') as file:
             }
 
 # Read Combined DMM data
+# dumps multimeter data into variables
 with open(combined_csv, 'r') as file:
     com_csvreader = csv.reader(file)
     next(com_csvreader)  # Skip the header row
     for value in com_csvreader:
-        if len(value) > 5:
+        if len(value) > 5: #checks if there are enough columns of data
             time_val = convert_time(value[1])
             com_data[time_val] = {
                 'date': value[0],
@@ -102,7 +104,7 @@ with open(output_filename, 'w', newline='') as file:
     csvwriter = csv.writer(file)
     csvwriter.writerow(combine_header)  # Write header row
 
-    for com_time_val, com_info in com_data.items():
+    for com_time_val, com_info in com_data.items(): #this block compares the time of the data and takes the corresponding value and writes it to a new list
         if com_time_val in pm_data:
             pm_info = pm_data[com_time_val]
             efficiency = com_info['power'] / pm_info['total_power'] if pm_info['total_power'] != 0 else 0
@@ -125,7 +127,7 @@ with open(output_filename, 'w', newline='') as file:
                 com_info['power'],  # DC Power
                 f"{efficiency:.4f}"  # Efficiency, formatted to 4 decimal places
             ]
-            csvwriter.writerow(outrow)
+            csvwriter.writerow(outrow) #writes matching data
         else:
             print(f"No matching time found for Time: {com_time_val}")
 
