@@ -6,7 +6,7 @@ import csv
 rm = pyvisa.ResourceManager()
 
 # CSV file setup
-#channels = ['101', '102', '103', '104', '105', '111', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
+#channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
 channels = ['102', '104', '105', '111', '115', '116', '117', '118', '119', '120']  # active channels in UL Test
 timestamp = time.strftime('%Y%m%d-%H%M%S')
 filename = f'daq_measurements_{timestamp}.csv'

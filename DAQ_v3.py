@@ -7,12 +7,12 @@ import threading
 rm = pyvisa.ResourceManager()
 
 # CSV file setup
-#channels = ['101', '102', '103', '104', '105', '111', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
-channels = ['102', '104', '105', '111', '115', '116', '117', '118', '119', '120']  # active channels in UL Test
+#channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
+channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
 timestamp = time.strftime('%Y%m%d-%H%M%S')
 
 # name = ['H1','L8','Rema','GD L10','T1','H2','Interior Top','CT OW','Chamber In','Chamber Out'] #UL Test header
-name = ['102', '104', '105', '111', '115', '116', '117', '118', '119', '120']
+name = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']
 #header = ['Date', 'Time'] + [f'Channel {i}' for i in channels] + ['Avg Temp (C)', 'Avg Temp (F)']
 header = ['Date', 'Time'] + name + ['Avg Temp (C)', 'Avg Temp (F)'] #UL Test
 
