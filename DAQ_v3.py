@@ -3,6 +3,10 @@ import time
 import csv
 import threading
 
+print('DAQ Datalogger: type "stop" to end the datalogging at anytime')
+print('')
+print('')
+print('')
 # Resource manager setup
 rm = pyvisa.ResourceManager()
 
