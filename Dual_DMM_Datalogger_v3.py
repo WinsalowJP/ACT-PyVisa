@@ -3,20 +3,25 @@ import time
 import csv
 import threading
 
+
+################PyVisa Setup##################################################################
 # Resource manager setup
 rm = pyvisa.ResourceManager()
 
 resources = rm.list_resources() #checks available devices for VISA to connect to. 
-print("Available resources:", resources)
+#print("Available resources:", resources) #uncomment this to check devices
 
+##############################################################################################
+
+####################Device Setup##############################################################################
 dmm_id1 = 'USB0::0x2A8D::0x0301::MY54507560::INSTR'  # multimeter 1 (ACT0012)
 dmm_id2 = 'USB0::0x2A8D::0x0301::MY54505907::INSTR'  # multimeter 2 (ACT0011)
 
-# CSV file setup
+            ##CSV file setup##
 timestamp = time.strftime('%Y%m%d-%H%M%S')
 #filename = f'Dual_DMM_Datalogger_{timestamp}.csv'
 header = ['Date'] + ['Time'] + ['Voltage (V)'] + ['Current (A)'] + ['Voltage of shunt (V)'] + ['Power (kW)']
-#############################################################################################################
+
 print('Enter output file name (without .csv extension):')
 name_input = input().strip()  # Get user input and remove any leading/trailing whitespace
 # Validate input
@@ -24,8 +29,7 @@ if not name_input:
     print("Error: Power Meter CSV name cannot be empty.")
     exit()
 filename = f'{name_input}.csv'
-#############################################################################################################
-
+##############################################################################################################
 
 ##############################################################
 # Global flag for stopping the loop.
@@ -38,7 +42,7 @@ def check_for_stop():
         user_input = input().strip().lower()
         if user_input == 'stop':
             stop_logging = True
-###############################################################
+##############################################################
 
 # Create and start the thread for checking the stop command
 input_thread = threading.Thread(target=check_for_stop)
