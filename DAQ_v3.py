@@ -12,11 +12,13 @@ rm = pyvisa.ResourceManager()
 
 # CSV file setup
 #channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
-channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
+# channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ default
+channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '117', '119']  # active channels in temp test
 timestamp = time.strftime('%Y%m%d-%H%M%S')
 
 # name = ['H1','L8','Rema','GD L10','T1','H2','Interior Top','CT OW','Chamber In','Chamber Out'] #UL Test header
-name = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']
+# name = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120'] #default
+name = ['Exhaust fan', 'T3', 'L2', 'HS1', 'HS2', 'L11','Output Fuse','J23','Solder Side', 'Negative Busbar','top', 'L10']
 #header = ['Date', 'Time'] + [f'Channel {i}' for i in channels] + ['Avg Temp (C)', 'Avg Temp (F)']
 header = ['Date', 'Time'] + name + ['Avg Temp (C)', 'Avg Temp (F)'] #UL Test
 
@@ -115,7 +117,8 @@ try:
                 
             # Write the measurements to the CSV file
             csvwriter.writerow(csv_out)
-            time.sleep(2)  # Wait 2 seconds between readings
+            time.sleep(2.5)  # Wait 2.5 seconds between readings
+            reading_count += 1 #increase counter
 
 except pyvisa.VisaIOError as e:
     print(f"VISA IO Error: {e}")
