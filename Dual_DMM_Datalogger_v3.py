@@ -8,7 +8,7 @@ import threading
 # Resource manager setup
 rm = pyvisa.ResourceManager()
 
-resources = rm.list_resources() #checks available devices for VISA to connect to. 
+resources = rm.list_resources() #Lists connected devices 
 #print("Available resources:", resources) #uncomment this to check devices
 
 ##############################################################################################
@@ -76,8 +76,8 @@ try:
         time.sleep(0.5)
 
         # Configure the multimeter for voltage measurement
-        dmm1.write('CONF:VOLT:DC 100,0.001')  # Configure for DC voltage, range 100V, resolution 1mV
-        dmm2.write('CONF:VOLT:DC 10,0.0001')  # Configure for DC voltage, range 10V, resolution 0.1mV
+        dmm1.write('CONF:VOLT:DC 10,0.001')  # Configure for DC voltage, range 10V, resolution 1mV
+        dmm2.write('CONF:VOLT:DC 10,0.001')  # Configure for DC voltage, range 10V, resolution 1mV
 
         # Perform multiple readings until stopped
         reading_count = 0
@@ -116,7 +116,7 @@ try:
 
             reading_count += 1
 
-except pyvisa.VisaIOError as e:
+except pyvisa.VisaIOError as e: #error handling
     print(f"VISA IO Error: {e}")
 except Exception as e:
     print(f"An error occurred: {e}")
@@ -133,4 +133,4 @@ finally:
 print('')
 print('')
 print('Press Enter to close')
-input()
+input() #ends the program
