@@ -11,14 +11,17 @@ print('')
 rm = pyvisa.ResourceManager()
 
 # CSV file setup
-#channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
+# channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ
 # channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120']  # active channels in DAQ default
-channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '117', '119']  # active channels in temp test
+# channels = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '117', '119']  # active channels in temp test
+channels = ['105', '102', '119', '112', '111', '113','114','104','115', '103', '117', '101']  # active channels in temp test modified
 timestamp = time.strftime('%Y%m%d-%H%M%S')
 
-# name = ['H1','L8','Rema','GD L10','T1','H2','Interior Top','CT OW','Chamber In','Chamber Out'] #UL Test header
 # name = ['101', '102', '103', '104', '105', '111','112','113','114', '115', '116', '117', '118', '119', '120'] #default
-name = ['Exhaust fan', 'T3', 'L2', 'HS1', 'HS2', 'L11','Output Fuse','J23','Solder Side', 'Negative Busbar','top', 'L10']
+# name = ['H1','L8','Rema','GD L10','T1','H2','Interior Top','CT OW','Chamber In','Chamber Out'] #UL Test header
+# name = ['Exhaust Fan', 'T3', 'L2', 'HS1', 'HS2', 'L11','Output Fuse','J23','Solder Side', 'Negative Busbar','Top', 'L10'] #thermal test name
+name = ['HS2', 'T3', 'L10', 'Output Fuse', 'L11', 'J23','Solder Side','HS1','Negative Busbar', 'L2','Top', 'Exhaust Fan'] #thermal test name
+
 #header = ['Date', 'Time'] + [f'Channel {i}' for i in channels] + ['Avg Temp (C)', 'Avg Temp (F)']
 header = ['Date', 'Time'] + name + ['Avg Temp (C)', 'Avg Temp (F)'] #UL Test
 
