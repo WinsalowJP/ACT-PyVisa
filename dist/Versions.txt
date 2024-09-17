@@ -1,0 +1,12 @@
+DAQ_v3.1 - generic version
+DAQ_v3.2 - added instructions to beginning of the program
+DAQ_v3.3 - temp test name change
+DAQ_v3.31 -changed channel names
+
+DAQ_v3.32 - fixed reading number counter
+
+DAQ_v3.33 - changed channel order
+
+DAQ_v4 - automatically plot a chart after the data is done logging. 
+
+DAQ_v5 - upgraded version of v4 with live graphing and plots a chart after logging is done. 
