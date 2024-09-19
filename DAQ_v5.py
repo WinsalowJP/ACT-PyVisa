@@ -44,6 +44,13 @@ avg_temps_c = []
 # Initialize the plot
 plt.ion()  # Turn on interactive mode
 fig, ax = plt.subplots(figsize=(12, 8))
+
+ax.set_title('Temperature vs Time', fontsize=26, pad=20)  # Add padding to create space below the title
+
+# Add subtitle (file name) below the title with smaller font and grey colorstop
+
+fig.text(0.43, 0.92, f'File: {csv_filename}', ha='center', fontsize=14, color='grey')
+
 lines = {channel: ax.plot([], [], label=f'Channel {channel}')[0] for channel in name}
 
 # Set initial plot settings
@@ -56,7 +63,7 @@ ax.grid(which='both', axis='y')
 ax.grid(which='minor', axis='y', linestyle=':', linewidth=0.5)
 ax.set_xlabel('Time (min)', fontsize=20)
 ax.set_ylabel('Temperature (°C)', fontsize=20)
-ax.set_title('Temperature vs Time', fontsize=26)
+# ax.set_title('Temperature vs Time', fontsize=26)
 ax.legend(loc='upper right', bbox_to_anchor=(1.27, 1), borderaxespad=0.)
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
